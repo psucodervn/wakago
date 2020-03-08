@@ -31,4 +31,4 @@ jobs:
       run: go build -v
 
     - name: Build for MacOS
-      run: GOOS=darwin GOARCH=amd64 go build -v
+      run: CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v
