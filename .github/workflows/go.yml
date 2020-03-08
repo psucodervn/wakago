@@ -24,7 +24,11 @@ jobs:
 
     - name: Get dependencies
       run: |
+        apt-get install libgtk-3-dev libappindicator3-dev libwebkit2gtk-4.0-dev
         go mod download
 
+    - name: Build for Linux
+      run: go build -v
+
     - name: Build for MacOS
-      run: GOOS=darwin GOARCH=amd64 go build -v main.go
+      run: GOOS=darwin GOARCH=amd64 go build -v
