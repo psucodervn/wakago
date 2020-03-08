@@ -26,5 +26,5 @@ jobs:
       run: |
         go mod download
 
-    - name: Build
-      run: go build -v .
+    - name: Build for MacOS
+      run: GOOS=darwin GOARCH=amd64 go build -v .
