@@ -27,4 +27,4 @@ jobs:
         go mod download
 
     - name: Build for MacOS
-      run: GOOS=darwin GOARCH=amd64 go build -v .
+      run: GOOS=darwin GOARCH=amd64 go build -v main.go
