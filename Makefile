@@ -1,7 +1,4 @@
 app:
-	go env
-	echo ${PATH}
 	go build .
-	go get -v github.com/machinebox/appify
-	ls ${PATH}
+	go install -v github.com/machinebox/appify
 	appify -name "Wakago" -icon ./assets/logo.png wakago
