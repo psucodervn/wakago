@@ -1,5 +1,9 @@
+SHELL = /bin/bash
+
 app:
 	go build .
-	go install -v github.com/machinebox/appify
-	ls ${HOME}/go/bin
-	${HOME}/go/bin/appify -name "Wakago" -icon ./assets/logo.png wakago
+	appify -name "Wakago" -icon ./assets/logo.png wakago
+
+clean:
+	rm wakago
+	rm -rf Wakago.app
