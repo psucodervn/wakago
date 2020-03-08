@@ -10,7 +10,7 @@ jobs:
 
   build:
     name: Build for MacOS
-    runs-on: macos-10.13
+    runs-on: macos-10.14
     steps:
 
       - name: Set up Go 1.14
