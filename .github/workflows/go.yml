@@ -23,6 +23,4 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build
-      run: |
-        go get github.com/machinebox/appify
-        make app
+      run: make app
