@@ -9,8 +9,8 @@ on:
 jobs:
 
   build:
-    name: Build
-    runs-on: ubuntu-latest
+    name: Build for MacOS
+    runs-on: macos-latest
     steps:
 
     - name: Set up Go 1.14
@@ -22,13 +22,5 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Get dependencies
-      run: |
-        sudo apt-get install libgtk-3-dev libappindicator3-dev libwebkit2gtk-4.0-dev
-        go mod download
-
-    - name: Build for Linux
-      run: go build -v
-
-    - name: Build for MacOS
-      run: CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v
+    - name: Build
+      run: make app
