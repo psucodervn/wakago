@@ -22,9 +22,7 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Get dependencies
+    - name: Build
       run: |
         go get github.com/machinebox/appify
-
-    - name: Build
-      run: make app
+        make app
