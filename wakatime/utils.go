@@ -2,9 +2,10 @@ package wakatime
 
 import (
 	"errors"
+	"os"
+
 	"github.com/mitchellh/go-homedir"
 	"gopkg.in/ini.v1"
-	"os"
 )
 
 func GetApiKey() (string, error) {

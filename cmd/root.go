@@ -3,11 +3,13 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/getlantern/systray"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
-	"os"
-	"time"
+
 	"wakago/assets"
 	"wakago/wakatime"
 )

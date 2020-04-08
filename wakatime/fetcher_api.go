@@ -3,8 +3,10 @@ package wakatime
 import (
 	"context"
 	"errors"
-	"github.com/go-resty/resty/v2"
 	"time"
+
+	"github.com/go-resty/resty/v2"
+
 	"wakago/model"
 )
 

@@ -3,8 +3,10 @@
 package main
 
 import (
-	"github.com/rs/zerolog/log"
 	"os"
+
+	"github.com/rs/zerolog/log"
+
 	"wakago/cmd"
 )
 

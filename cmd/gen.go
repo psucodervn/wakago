@@ -3,11 +3,12 @@ package cmd
 import (
 	"bytes"
 	"fmt"
-	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
 	"strconv"
 	"text/template"
+
+	"github.com/spf13/cobra"
 )
 
 var genCmd = &cobra.Command{
