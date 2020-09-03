@@ -2,10 +2,11 @@ package wakatime
 
 import (
 	"errors"
+	"io/ioutil"
 	"os"
+	"regexp"
 
 	"github.com/mitchellh/go-homedir"
-	"gopkg.in/ini.v1"
 )
 
 func GetApiKey() (string, error) {
@@ -19,15 +20,20 @@ func GetApiKey() (string, error) {
 	return "", errors.New("cannot detect api_key from system")
 }
 
+var reApiKey = regexp.MustCompile(`api_key\s*=\s(\S+)`)
+
 func getApiKeyFromFile(filePath string) (string, error) {
-	filePath, _ = homedir.Expand(filePath)
-	cfg, err := ini.Load(filePath)
+	filePath, err := homedir.Expand(filePath)
 	if err != nil {
 		return "", err
 	}
-	k, err := cfg.Section("settings").GetKey("api_key")
+	b, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return "", err
 	}
-	return k.String(), nil
+	ar := reApiKey.FindStringSubmatch(string(b))
+	if len(ar) != 2 {
+		return "", errors.New("invalid wakatime config file")
+	}
+	return ar[1], nil
 }
