@@ -8,16 +8,14 @@ import (
 )
 
 func TestApiFetcher_FetchTodayCodedTime(t *testing.T) {
-	type fields struct {
-		apiKey string
-	}
 	tests := []struct {
 		name    string
 		wantErr bool
 	}{
 		{name: string("success"), wantErr: false},
 	}
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cc := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cc()
 	fetcher := newFetcherFromEnv()
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -26,18 +26,59 @@ func run(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
+var (
+	menus = make(map[*systray.MenuItem][]*systray.MenuItem)
+)
+
+func updateSubMenu(mi *systray.MenuItem, items []string) {
+	ar := menus[mi]
+	if len(ar) < len(items) {
+		for i := len(ar); i < len(items); i++ {
+			ar = append(ar, mi.AddSubMenuItem(items[i], items[i]))
+		}
+	} else if len(ar) > len(items) {
+		for i := len(items); i < len(ar); i++ {
+			ar[i].Hide()
+		}
+	}
+	for i := range items {
+		ar[i].Show()
+		ar[i].SetTitle(items[i])
+		ar[i].SetTooltip(items[i])
+	}
+	menus[mi] = ar
+}
+
 func onReady(fetcher *wakatime.ApiFetcher) func() {
+	var gProjects, gLanguages *systray.MenuItem
 	fetch := func(ctx context.Context) {
-		d, err := fetcher.FetchTodayCodedTime(ctx)
+		d, summaries, err := fetcher.FetchTodaySummaries(ctx)
 		if err != nil {
 			return
 		}
 		systray.SetTitle(" " + formatDuration(d))
+
+		var projects []string
+		for _, s := range summaries.Projects {
+			projects = append(projects, s.Name+" - "+s.Text)
+			// gProjects.AddSubMenuItem(s.Name+" - "+s.Text, s.Text)
+		}
+		updateSubMenu(gProjects, projects)
+
+		var languages []string
+		for _, s := range summaries.Languages {
+			languages = append(languages, s.Name+" - "+s.Text)
+			// gLanguages.AddSubMenuItem(s.Name+" - "+s.Text, s.Text)
+		}
+		updateSubMenu(gLanguages, languages)
 	}
 
 	return func() {
 		systray.SetTemplateIcon(assets.Icon(), assets.Icon())
-		mQuit := systray.AddMenuItem("Quit", "Quits this app")
+		gProjects = systray.AddMenuItem("Projects", "Projects")
+		gLanguages = systray.AddMenuItem("Languages", "Languages")
+		systray.AddSeparator()
+		mQuit := systray.AddMenuItem("Quit", "Quit wakago")
 		ctx, cancelFunc := context.WithTimeout(context.Background(), 30*time.Second)
 
 		fetch(ctx)
