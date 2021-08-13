@@ -16,3 +16,9 @@ func main() {
 		os.Exit(1)
 	}
 }
+
+//
+func bad_function() {
+var bad_id string
+_ = bad_id
+}
