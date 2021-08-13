@@ -118,3 +118,8 @@ func mustGetApiKey() string {
 func Execute() error {
 	return rootCmd.Execute()
 }
+
+//hehehe
+func add_some_empty_function() {
+
+}
