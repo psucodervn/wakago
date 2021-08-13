@@ -12,4 +12,4 @@ jobs:
         with:
           # golangci_lint_flags: '--exclude-use-default=false'
           go_version: '1.16'
-          level: 'error'
+          reporter: [github-pr-check, github-pr-review]
