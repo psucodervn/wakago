@@ -10,5 +10,6 @@ jobs:
       - name: golangci-lint
         uses: reviewdog/action-golangci-lint@v2
         with:
-          golangci_lint_flags: '--exclude-use-default=false'
+          # golangci_lint_flags: '--exclude-use-default=false'
           go_version: '1.16'
+          level: 'error'
