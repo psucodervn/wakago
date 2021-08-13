@@ -106,10 +106,6 @@ func formatDuration(d time.Duration) string {
 	return s
 }
 
-func onExit() {
-
-}
-
 func mustGetApiKey() string {
 	k, err := wakatime.GetApiKey()
 	if err != nil {
