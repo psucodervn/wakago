@@ -17,8 +17,7 @@ func main() {
 	}
 }
 
-//
-func bad_function() {
-var bad_id string
-_ = bad_id
+func badFunction() {
+	var badID string
+	_ = badID
 }
