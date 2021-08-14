@@ -118,3 +118,7 @@ func mustGetApiKey() string {
 func Execute() error {
 	return rootCmd.Execute()
 }
+
+func exit_2() {
+	
+}
