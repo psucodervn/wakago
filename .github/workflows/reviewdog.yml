@@ -10,6 +10,6 @@ jobs:
       - name: golangci-lint
         uses: reviewdog/action-golangci-lint@v2
         with:
-          golangci_lint_flags: '--exclude-use-default=false -E gocyclo,revive,goimports'
+          golangci_lint_flags: '--exclude-use-default=false --presets bugs,comment,complexity,error,format,import,metalinter,module,performance,sql,style,test,unused'
           go_version: '1.16'
           filter_mode: file
