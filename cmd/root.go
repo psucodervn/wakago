@@ -119,6 +119,7 @@ func Execute() error {
 	return rootCmd.Execute()
 }
 
-func exit_2() {
-	
+// dump function
+func onExit() {
+
 }
