@@ -18,6 +18,6 @@ func main() {
 }
 
 func badFunction() {
-	var badID string
-	_ = badID
+	var bad_Id string
+_ = bad_Id
 }

@@ -4,13 +4,19 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  golangci-lint:
-    name: runner / golangci-lint
+  # golangci-lint:
+  #   name: runner / golangci-lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Check out code into the Go module directory
+  #       uses: actions/checkout@v2
+  #     - name: golangci-lint
+  #       uses: reviewdog/action-golangci-lint@v1
+  #       with:
+  #         golangci_lint_flags: '--enable-all --exclude-use-default=false'
+  reviewdog:
+    name: reviewdog
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
-      - name: golangci-lint
-        uses: reviewdog/action-golangci-lint@v1
-        with:
-          golangci_lint_flags: '--enable-all --exclude-use-default=false'
+      - uses: reviewdog/action-setup@v1
+      - run: reviewdog

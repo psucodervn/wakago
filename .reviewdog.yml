@@ -1,0 +1,3 @@
+runner:
+  golangci-lint:
+    cmd: golangci-lint run --out-format=line-number -E goimports,revive
