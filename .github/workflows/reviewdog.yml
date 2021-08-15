@@ -18,5 +18,7 @@ jobs:
     name: reviewdog
     runs-on: ubuntu-latest
     steps:
-      - uses: reviewdog/action-setup@v1
-      - run: reviewdog
+      - name: Setup reviewdog
+        uses: reviewdog/action-setup@v1
+      - uses: actions/checkout@v2
+      - run: reviewdog -filter-mode=file
