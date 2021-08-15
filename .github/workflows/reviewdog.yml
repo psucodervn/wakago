@@ -21,4 +21,11 @@ jobs:
       - name: Setup reviewdog
         uses: reviewdog/action-setup@v1
       - uses: actions/checkout@v2
-      - run: reviewdog -filter-mode=file
+      - uses: haya14busa/action-cond@v1
+        id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+      - name: Run reviewdog
+        run: reviewdog -filter-mode=file -reporter=${{ steps.reporter.outputs.value }}

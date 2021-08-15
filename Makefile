@@ -7,3 +7,6 @@ app:
 
 clean:
 	rm -rf wakago Wakago.app Wakago.zip
+
+lint:
+	reviewdog -diff="git diff"
