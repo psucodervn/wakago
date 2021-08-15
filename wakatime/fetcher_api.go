@@ -11,6 +11,7 @@ import (
 )
 
 var _ Fetcher = &ApiFetcher{}
+var ErrInvalidResponse = errors.New("invalid response")
 
 type ApiFetcher struct {
 	client *resty.Client
@@ -38,7 +39,7 @@ func (f *ApiFetcher) FetchTodayCodedTime(ctx context.Context) (time.Duration, er
 
 	res := resp.Result().(*summariesResponse)
 	if len(res.Data) == 0 {
-		return 0, errors.New("invalid response")
+		return 0, ErrInvalidResponse
 	}
 
 	ms := time.Duration(res.Data[0].GrandTotal.TotalSeconds * 1000)
@@ -63,7 +64,7 @@ func (f *ApiFetcher) FetchTodaySummaries(ctx context.Context) (time.Duration, *m
 
 	res := resp.Result().(*summariesResponse)
 	if len(res.Data) == 0 {
-		return 0, nil, errors.New("invalid response")
+		return 0, nil, ErrInvalidResponse
 	}
 
 	ms := time.Duration(res.Data[0].GrandTotal.TotalSeconds * 1000)
