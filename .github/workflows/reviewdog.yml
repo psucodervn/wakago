@@ -4,30 +4,33 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  # golangci-lint:
-  #   name: runner / golangci-lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out code into the Go module directory
-  #       uses: actions/checkout@v2
-  #     - name: golangci-lint
-  #       uses: reviewdog/action-golangci-lint@v1
-  #       with:
-  #         golangci_lint_flags: '--enable-all --exclude-use-default=false'
-  reviewdog:
-    name: reviewdog
+  golangci-lint:
+    name: runner / golangci-lint
     runs-on: ubuntu-latest
     steps:
-      - name: Setup reviewdog
-        uses: reviewdog/action-setup@v1
-      - uses: actions/checkout@v2
-      - uses: haya14busa/action-cond@v1
-        id: reporter
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          cond: ${{ github.event_name == 'pull_request' }}
-          if_true: "github-pr-review"
-          if_false: "github-check"
-      - name: Run reviewdog
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: reviewdog -filter-mode=file -reporter=${{ steps.reporter.outputs.value }} -tee
+          golangci_lint_flags: '-E goimports,revive'
+          go_version: 1.16
+          filter_mode: file
+
+  # reviewdog:
+  #   name: reviewdog
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Setup reviewdog
+  #       uses: reviewdog/action-setup@v1
+  #     - uses: actions/checkout@v2
+  #     - uses: haya14busa/action-cond@v1
+  #       id: reporter
+  #       with:
+  #         cond: ${{ github.event_name == 'pull_request' }}
+  #         if_true: "github-pr-review"
+  #         if_false: "github-check"
+  #     - name: Run reviewdog
+  #       env:
+  #         REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: reviewdog -filter-mode=file -reporter=${{ steps.reporter.outputs.value }} -tee
